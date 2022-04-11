@@ -90,8 +90,8 @@ case $strVersion in
     *5.10.92*)
                 version=Linux_5.10.92
         ;;   
-    *5.15.13*)
-                version=Linux_5.15.13
+    *5.15.32*)
+                version=Linux_5.15.32
         ;;   
 
 	*)
