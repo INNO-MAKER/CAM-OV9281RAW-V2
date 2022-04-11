@@ -89,7 +89,10 @@ model=0
 case $strVersion in
     *5.10.92*)
                 version=Linux_5.10.92
-        ;;    
+        ;;   
+    *5.15.13*)
+                version=Linux_5.15.13
+        ;;   
 
 	*)
                 echo "@ Linux Version Not Match! Please contact support@inno-maker.com"
