@@ -2,14 +2,14 @@
 #Description: This codes was designed for help the user Automatic install the OV9281 driver
 #             on all Raspbian system. There are two parts in this script. 
 #             Part 1 is add the to modify the '/boot/config.txt'and '/boot/cmdline.txt', 
-#             Part 2 is automatic the right driver version and install.
+#             Part 2 is automatic the right driver version path and install.
 #             This script was done in a hurry , if you find some bug, kindly let me know. thanks in advance.
 #
 #USAGE:      run './autoinstall_driver.sh' on the terminal of Raspbian
 #
 #Author:      calvin (calvin@inno-maker.com)
 #
-#data:        2022.03.11
+#data:        2022.05.26
 #
 ###############################################################################################################
 
@@ -79,20 +79,24 @@ fi
 
 strVersion=$(awk -F " " '{print $3}' /proc/version)
 strModel=$(cat /proc/device-tree/model)
+strArch=$(arch)
 
 echo $strVersion
 echo $strModel
+echo $strArch
 
 version=0
 model=0
+arch=0
+driverpath=0
 
 case $strVersion in
-    *5.10.92*)
-                version=Linux_5.10.92
-        ;;   
     *5.15.32*)
                 version=Linux_5.15.32
-        ;;   
+        ;; 
+    *5.10.92*)
+                version=Linux_5.10.92
+        ;;    
 
 	*)
                 echo "@ Linux Version Not Match! Please contact support@inno-maker.com"
@@ -107,7 +111,7 @@ case $strModel in
 		model=pi3
 	;;
     *Pi' 'Compute' 'Module' '4*)
-		model=pi4
+		model=cm4-dual
 	;;
 	
 	*Pi' '0*)
@@ -118,8 +122,25 @@ case $strModel in
     ;;
 esac
 
+case $strArch in
+	*armv7l*)
+		arch=armv7l
+		echo "System is 32 bit arch."
+		driverpath=./$version/$model
+	;;
+	*aarch64*)
+		arch=arm64
+		echo "System is 64 bit arch."
+		driverpath=./$version/$arch/pi3_4
+	;;
+	*)
+		echo "@ Unkown System Arch! Please contact support@inno-maker.com"
+	;;
+esac
 
-if [[ $version == 0 || $model == 0 ]]; then
+echo "driverpath: "$driverpath
+
+if [[ $version == 0 || $model == 0 || $arch == 0 ]]; then
 	echo "@ Install Failed, Please contact support@inno-maker.com"
 	exit
 fi
@@ -127,7 +148,7 @@ fi
 
 sudo chmod -R 777 ./tools/*
 
-cd ./$version/$model
+cd $driverpath
 echo "PWD: "$(pwd)
 sudo chmod -R 777 ./*
 
@@ -136,6 +157,8 @@ echo "-----make install----START:"
 sudo make install
 echo "-----make install----END."
 
+echo "-----check /dev/video0------"
+ls /dev/video0
 
 echo "INNO-MAKER: reboot now?(y/n):"
 read KB_INPUT
