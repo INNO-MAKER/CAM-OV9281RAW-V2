@@ -157,9 +157,6 @@ echo "-----make install----START:"
 sudo make install
 echo "-----make install----END."
 
-echo "-----check /dev/video0------"
-ls /dev/video0
-
 echo "INNO-MAKER: reboot now?(y/n):"
 read KB_INPUT
 case $KB_INPUT in
