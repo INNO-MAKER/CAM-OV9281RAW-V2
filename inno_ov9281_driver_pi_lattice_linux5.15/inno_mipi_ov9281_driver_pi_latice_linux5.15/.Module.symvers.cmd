@@ -1,0 +1,1 @@
+cmd_/media/pi/rootfs/home/pi/uvc/inno_mipi_ov9281_driver_pi_latice_linux5.15/Module.symvers := sed 's/\.ko$$/\.o/' /media/pi/rootfs/home/pi/uvc/inno_mipi_ov9281_driver_pi_latice_linux5.15/modules.order | scripts/mod/modpost -m -a  -o /media/pi/rootfs/home/pi/uvc/inno_mipi_ov9281_driver_pi_latice_linux5.15/Module.symvers -e -i Module.symvers   -T -
