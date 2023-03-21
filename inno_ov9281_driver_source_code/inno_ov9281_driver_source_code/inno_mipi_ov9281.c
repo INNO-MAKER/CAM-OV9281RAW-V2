@@ -974,7 +974,8 @@ static int ov9281_probe(struct i2c_client *client,
 	return ret;
 }
 
-static int ov9281_remove(struct i2c_client *client)
+//static int ov9281_remove(struct i2c_client *client)
+void  ov9281_remove(struct i2c_client *client)
 {
 	struct ov9281 *priv = to_ov9281(client);
 
@@ -984,7 +985,8 @@ static int ov9281_remove(struct i2c_client *client)
 	media_entity_cleanup(&priv->subdev.entity);
 	v4l2_ctrl_handler_free(&priv->ctrl_handler);
 
-	return 0;
+	//return 0;
+	return ;
 }
 
 static const struct i2c_device_id ov9281_id[] = {
