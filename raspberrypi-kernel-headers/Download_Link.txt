@@ -1,3 +1,3 @@
-raspberrypi-kernel-headers_1.20230317-1_arm64.deb  #kernel Linux raspberrypi 6.1.19-v8+ #1637 SMP PREEMPT Tue Mar 14 11:11:47 GMT 2023 aarch64 GNU/Linux
-
-https://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-firmware/raspberrypi-kernel-headers_1.20230317-1_arm64.deb
+#kernel Linux raspberrypi 6.1.19-v8+ #1637 SMP PREEMPT Tue Mar 14 11:11:47 GMT 2023 aarch64 GNU/Linux
+sudo wget https://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-firmware/raspberrypi-kernel-headers_1.20230317-1_arm64.deb
+sudo dpkg -i raspberrypi-kernel-headers_1.20230317-1_arm64.deb 
