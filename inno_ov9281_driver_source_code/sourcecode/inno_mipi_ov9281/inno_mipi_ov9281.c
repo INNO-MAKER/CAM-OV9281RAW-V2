@@ -27,6 +27,7 @@
 #include <media/v4l2-fwnode.h>
 #include <media/v4l2-image-sizes.h>
 #include <media/v4l2-mediabus.h>
+#include <linux/version.h>
 
 /* OV9281 supported geometry */
 #define OV9281_TABLE_END		0xFFFF
@@ -47,8 +48,6 @@ module_param(sensor_mode, int, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 MODULE_PARM_DESC(sensor_mode, "Sensor Work Mode: 0=10bit_stream 1=8bit_stream 2=10bit_ext_trig 3=8bit_ext_trig 4=720_10_stream 5=720_8_stream  6=720_10_ext_trig  7=720_8_ext_trig 8=640x400_10_stream  9=640x400_8_stream 10=640x400_10_ext_trig 11=640x400_8_ext_trig 12=320x200_8_stream 13=320x200_8_ext_trig");
 
 
-#define KERNEL_5_15 1
-//#define KERNEL_6_1
 
 /* Addresses to scan */
 static const unsigned short normal_i2c[] = { 0x60, 0x60 , I2C_CLIENT_END };
@@ -608,7 +607,7 @@ static int ov9281_s_ctrl(struct v4l2_ctrl *ctrl)
 }
 
 static int ov9281_enum_mbus_code(struct v4l2_subdev *sd,
-#ifdef KERNEL_5_15
+#if LINUX_VERSION_CODE>= KERNEL_VERSION(5,15,0) 
 				 struct v4l2_subdev_state *sd_state,
 #else
 				 struct v4l2_subdev_pad_config *cfg,
@@ -665,7 +664,7 @@ static const struct ov9281_mode *ov9281_find_best_fit(
 }
 
 static int ov9281_set_fmt(struct v4l2_subdev *sd,
-#ifdef KERNEL_5_15
+#if LINUX_VERSION_CODE>= KERNEL_VERSION(5,15,0) 
 			  struct v4l2_subdev_state *sd_state,
 #else
 			  struct v4l2_subdev_pad_config *cfg,
@@ -693,7 +692,7 @@ static int ov9281_set_fmt(struct v4l2_subdev *sd,
 }
 
 static int ov9281_get_fmt(struct v4l2_subdev *sd,
-#ifdef KERNEL_5_15
+#if LINUX_VERSION_CODE>= KERNEL_VERSION(5,15,0) 
 			  struct v4l2_subdev_state *sd_state,
 #else
 			  struct v4l2_subdev_pad_config *cfg,
@@ -974,10 +973,10 @@ static int ov9281_probe(struct i2c_client *client,
 
 	return ret;
 }
-#ifdef KERNEL_6_1
-void  ov9281_remove(struct i2c_client *client)
+#if LINUX_VERSION_CODE>= KERNEL_VERSION(6,1,0) 
+void ov9281_remove(struct i2c_client *client)
 #else
-static int ov9281_remove(struct i2c_client *client)
+static int ov9281_remove(struct i2c_client *client)	
 #endif
 {
 	struct ov9281 *priv = to_ov9281(client);
@@ -987,13 +986,11 @@ static int ov9281_remove(struct i2c_client *client)
 	v4l2_async_unregister_subdev(&priv->subdev);
 	media_entity_cleanup(&priv->subdev.entity);
 	v4l2_ctrl_handler_free(&priv->ctrl_handler);
-
-#ifdef KERNLE_6_1
-	return ;
-#else
+#if LINUX_VERSION_CODE>= KERNEL_VERSION(6,1,0) 
+	return;
+#else	
 	return 0;
 #endif
-
 }
 
 static const struct i2c_device_id ov9281_id[] = {
