@@ -856,8 +856,12 @@ static int ov9281_detect(struct i2c_client *client, struct i2c_board_info *info)
 	return 0;
 }
 
+#if LINUX_VERSION_CODE>= KERNEL_VERSION(6,6,20) 
+static int ov9281_probe(struct i2c_client *client)			
+#else
 static int ov9281_probe(struct i2c_client *client,
 			const struct i2c_device_id *did)
+#endif			
 {
 	struct ov9281 *priv;
 	struct i2c_adapter *adapter = to_i2c_adapter(client->dev.parent);
