@@ -3,10 +3,10 @@ Use_innomaker_unique_driver_on_pi5
 Step1 ,  Follow CAM-MIPI9281V2-Compile Driver Source Code.PDF compiler and install driver;
 
 
-Step2,   run both below 3 scripts # CSI 1
+Step2,   run below scripts accordinglly
+
 # For csi0
 ./ov9281-pi5-csi0-initial.sh
-
 
 # For csi1
 ./ov9281-pi5-csi1-initial.sh
@@ -14,7 +14,7 @@ Step2,   run both below 3 scripts # CSI 1
 
 
 
-Step3, if you need to use csi0.
+Step3, copy dtb files to overlays folder
 
 # For csi0
 copy inno_mipi_ov9281_csi0.dtbo to folder  /boot/overlays  
