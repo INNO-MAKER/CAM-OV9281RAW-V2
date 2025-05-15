@@ -4,15 +4,16 @@ Step1 ,  Follow CAM-MIPI9281V2-Compile Driver Source Code.PDF compiler and insta
 
 Step2,   run both below 3 scripts # CSI 1
 
-# For PI4/PI3
+# For csi1
 ov9281-pi5-initial.sh
 ov9281-pi5-raw.sh
 
-# For PI5
+
+# For csi0
 ov9281-pi5-csi0-initial.sh
 ov9281-pi5-raw.sh
 
-Step3, if you need to use csi0.
+Step3, copy dtb files
 
 # CSI0
 copy inno_mipi_ov9281_csi0.dtbo to folder  /boot/overlays  
