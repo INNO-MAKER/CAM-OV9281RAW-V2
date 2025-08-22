@@ -1,0 +1,1 @@
+export LIBCAMERA_RPI_CONFIG_FILE=timeout.yaml
